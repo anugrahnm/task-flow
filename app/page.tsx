@@ -1,5 +1,6 @@
-import LoginComponent from "@/components/LoginComponent";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import LoginComponent from "@/app/login/LoginForm";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 
 export default async function Login() {
   const supabase = await createSupabaseServerClient();
@@ -7,9 +8,7 @@ export default async function Login() {
     data: { user },
   } = await supabase.auth.getUser();
   console.log({ user });
-  return (
-    <div className="flex min-h-screen items-center justify-center">
-      <LoginComponent user={user} />
-    </div>
-  );
+  if (user) redirect("/tasks");
+  redirect("/login");
+  return <div className="flex min-h-screen items-center justify-center"></div>;
 }

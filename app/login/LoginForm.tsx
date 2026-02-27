@@ -3,7 +3,7 @@
 import { User } from "@supabase/supabase-js";
 
 import { useRouter } from "next/navigation";
-import { Button } from "./ui/button";
+import { Button } from "../../components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,16 +11,25 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-} from "./ui/card";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+} from "../../components/ui/card";
+import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
+import { SubmitButton } from "./submit-button";
+import { logIn, resetPassword } from "../auth/actions";
+// import { useState } from "react";
+// import { createBrowserClient } from "@supabase/ssr";
 
 type EmailPasswordProps = {
   user: User | null;
 };
 
-export default function LoginComponent({ user }: EmailPasswordProps) {
+export default function LoginForm({ user }: EmailPasswordProps) {
   const router = useRouter();
+
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const supabase = createBrowserClient();
+
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
@@ -29,14 +38,15 @@ export default function LoginComponent({ user }: EmailPasswordProps) {
           Enter your email below to login to your account
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <form>
+      <form>
+        <CardContent>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
+                name="email"
                 placeholder="m@example.com"
                 required
                 aria-label="Enter your email"
@@ -47,40 +57,42 @@ export default function LoginComponent({ user }: EmailPasswordProps) {
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
                 <a
-                  href="#"
                   className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                  onClick={() => resetPassword}
                 >
                   Forgot your password?
                 </a>
               </div>
               <Input
                 id="password"
+                name="password"
+                type="password"
                 placeholder="Enter your password"
                 aria-label="Enter your password"
                 aria-required="true"
                 required
-                type="password"
               />
             </div>
           </div>
-        </form>
-      </CardContent>
-      <CardFooter className="flex-col gap-2">
-        <Button
-          variant="outline"
-          type="submit"
-          className="w-full cursor-pointer text-white"
-        >
-          Login
-        </Button>
-        <Button
-          type="button"
-          className="w-full cursor-pointer text-white"
-          onClick={() => router.push("/signup")}
-        >
-          Sign Up
-        </Button>
-      </CardFooter>
+        </CardContent>
+        <CardFooter className="flex-col gap-2 pt-2">
+          <SubmitButton
+            formAction={logIn}
+            variant="outline"
+            type="submit"
+            className="w-full cursor-pointer text-white"
+          >
+            Login
+          </SubmitButton>
+          <Button
+            type="button"
+            className="w-full cursor-pointer text-white"
+            onClick={() => router.push("/signup")}
+          >
+            Sign Up
+          </Button>
+        </CardFooter>
+      </form>
     </Card>
   );
 }

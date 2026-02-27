@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
-import SignUpForm from "./SignUpForm";
+import LoginForm from "./LoginForm";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
-export default async function SignUpPage() {
+export default async function LoginPage() {
   const supabase = await createSupabaseServerClient();
 
   const {
@@ -14,7 +14,7 @@ export default async function SignUpPage() {
   }
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <SignUpForm user={null} />
+      <LoginForm user={null} />
     </div>
   );
 }

@@ -21,7 +21,7 @@ export async function createSupabaseServerClient() {
     return createServerClient(supabaseUrl, supabaseDefaultKey, {
         cookies: {
             getAll() {
-                return cookieStore.getAll();
+                return cookieStore.getAll()
             },
             setAll(cookiesToSet) {
                 try {
