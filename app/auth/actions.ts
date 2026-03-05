@@ -34,7 +34,11 @@ export async function signUp(formData: FormData) {
 
   const data = {
     email: formData.get('email') as string,
-    password: formData.get('password') as string
+    password: formData.get('password') as string,
+    options: {
+      // Using process.env.NEXT_PUBLIC_SITE_URL or hardcoding fallback
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'}/tasks`,
+    }
   }
   if (
     typeof data.email !== 'string' ||

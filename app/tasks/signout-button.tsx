@@ -9,9 +9,9 @@ export function SignOutButton() {
     <Button
       type="button"
       onClick={() => signOut()}
-      className="w-24 cursor-pointer h-14"
+      className="w-20 cursor-pointer h-12"
     >
-      LogOut
+      Log Out
     </Button>
   );
 }
